@@ -51,7 +51,7 @@ AST *Parser::parseCalc() {
 Expr* Parser::parseExpr() {
     Expr* Left = parseTerm();
     while(Tok.isOneOf(Token::plus, Token::minus)) {
-        BinaryOp::Operator Op = Tok.is(Token::plus) ? Binary.Plus : Binary::Minus;
+        BinaryOp::Operator Op = Tok.is(Token::plus) ? BinaryOp::Plus : BinaryOp::Minus;
         advance();
         Expr* Right = parseTerm();
         Left = new BinaryOp(Op, Left, Right);
@@ -62,7 +62,7 @@ Expr* Parser::parseExpr() {
 Expr* Parser::parseTerm() {
     Expr* Left = parseFactor();
     while(Tok.isOneOf(Token::star, Token::slash)) {
-        BinaryOp::Operator Op = Tok.is(Token::star) ? Binary.Mul : Binary::Div;
+        BinaryOp::Operator Op = Tok.is(Token::star) ? BinaryOp::Mul : BinaryOp::Div;
         advance();
         Expr* Right = parseFactor();
         Left = new BinaryOp(Op, Left, Right);
